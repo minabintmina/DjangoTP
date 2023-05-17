@@ -1,0 +1,10 @@
+{% extends 'magasin/base.html' %}
+
+{% block content %}
+  <h1>Nouveau fournisseur</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer</button>
+  </form>
+{% endblock %}

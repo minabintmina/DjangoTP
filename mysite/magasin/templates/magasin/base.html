@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block title %} {% endblock %}</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="{% static 'css/base.css'%}"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block styles %} {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="http://127.0.0.1:8000">NermineSite</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="http://127.0.0.1:8000/magasin">Products</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://127.0.0.1:8000/admin/">Admin</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'nouveauFournisseur' %}">Fournisseur</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categorie
+                </a>
+                {% for cat in categorie %}
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {% if cat.name == 'Al' %}
+                <li><a class="dropdown-item" href="/listeCat/{{cat.id}}">Alimentaire</a></li>
+                {% endif %}
+                {% if cat.name == 'Mb' %}
+                <li><a class="dropdown-item" href="/listeCat/{{cat.id}}">Meuble</a></li>
+                {% endif %}
+                {% if cat.name == 'Sn' %}
+                <li><a class="dropdown-item" href="/listeCat/{{cat.id}}">Sanitaire</a></li>
+                {% endif %}
+                {% if cat.name == 'Vs' %}
+                <li><a class="dropdown-item" href="/listeCat/{{cat.id}}">Vaisselle</a></li>
+                {% endif %}
+                {% if cat.name == 'Vt' %}
+                <li><a class="dropdown-item" href="/listeCat/{{cat.id}}">Vêtement</a></li>
+                {% endif %}
+                {% if cat.name == 'Jx' %}
+                <li><a class="dropdown-item" href="/listeCat/{{cat.id}}">Jouets</a></li>
+                {% endif %}
+                {% if cat.name == 'Lg' %}
+                <li><a class="dropdown-item" href="/listeCat/{{cat.id}}">Linge de Maison</a></li>
+                {% endif %}
+                {% if cat.name == 'Bj' %}
+                <li><a class="dropdown-item" href="/listeCat/{{cat.id}}">Bijoux</a></li>
+                {% endif %}
+                {% if cat.name == 'Dc' %}
+                <li><a class="dropdown-item" href="/listeCat/{{cat.id}}">Décor</a></li>
+                {% endif %}
+                </ul>
+                {% endfor %}
+              </li>
+              <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item active">
+                <a class="nav-link" href="#">{{user}},</a>
+                </li>
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
+                </li>
+                {% else %}
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+                </li>
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'register' %}">Inscription</a>
+                </li>
+                {% endif %}
+                </ul>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    {% block content %} {% endblock %}
+
+  </body>
+</html>
